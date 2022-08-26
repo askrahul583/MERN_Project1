@@ -16,11 +16,7 @@ const LandingPage = () => {
             </div>
             <div className="btnContainer">
               <a href="/login">
-                <Button
-                  size="lg"
-                  className="btnLogin"
-                  variant="outline-primary"
-                >
+                <Button size="lg" className="btnLogin" variant="primary">
                   <strong>Login</strong>
                 </Button>
               </a>

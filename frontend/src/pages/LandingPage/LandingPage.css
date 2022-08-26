@@ -31,3 +31,22 @@
   width: 200px;
   height: 55px;
 }
+
+@media only screen and (min-width: 1200px) {
+  .btnContainer {
+    padding: 0 200px;
+  }
+  .title {
+    padding: 0 100px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .title {
+    font-size: 60px;
+  }
+  .btnLogin {
+    width: 150px;
+    height: 50px;
+  }
+}
