@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
-import notes from "../../data/notes";
+// import notes from "../../data/notes";
+// import axios from "axios";
 
 const MyNotes = () => {
+  const [notes, setNotes] = useState([]);
+
   const deleteHandler = (id) => {
     if (window.confirm("Are You Sure To Delete")) {
     }
   };
+
+  const fetchNotes = async () => {
+    // const data = await axios.get("api/notes");
+    const response = await fetch("api/notes");
+    const data = await response.json();
+    setNotes(data);
+  };
+
+  // console.log(notes);
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   return (
     <MainScreen title="Welcome Back Rahul Kumar...">
@@ -51,10 +66,10 @@ const MyNotes = () => {
                 Delete
               </Button>
             </Card.Header>
-            <Accordion.Collapse eventKey="0">
+            <Accordion.Collapse eventKey="0"> 
               <Card.Body>
                 <h4>
-                  <Badge variant="success" bg="success">
+                  <Badge style={{ backgroundColor: "green" }}>
                     Category - {note.category}
                   </Badge>
                 </h4>
