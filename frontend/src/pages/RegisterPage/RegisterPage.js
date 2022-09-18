@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import MainScreen from "../../components/MainScreen";
-import axios from "axios";
 import "./RegisterPage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../actions/userActions";
 
-function RegisterScreen({ history }) {
+function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState(
@@ -17,13 +18,11 @@ function RegisterScreen({ history }) {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const userRegister = useSelector((state) => state.userRegister);
-  // const { loading, error, userInfo } = userRegister;
-
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+  const history = useHistory();
   const postDetails = (pics) => {
     if (
       pics ===
@@ -43,7 +42,7 @@ function RegisterScreen({ history }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           setPic(data.url.toString());
         })
         .catch((err) => {
@@ -54,37 +53,19 @@ function RegisterScreen({ history }) {
     }
   };
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     history.push("/");
-  //   }
-  // }, [history, userInfo]);
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     if (password !== confirmpassword) {
-      setMessage("Passwords Do Not Match");
+      setMessage("Passwords Don't Match");
     } else {
-      setMessage(null);
-      try {
-        const config = {
-          header: {
-            "Content-type": "application/json",
-          },
-        };
-        setLoading(true);
-        const { data } = await axios.post(
-          "/api/users",
-          { name, pic, email, password },
-          config
-        );
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+      dispatch(register(name, email, password, pic));
     }
   };
 
