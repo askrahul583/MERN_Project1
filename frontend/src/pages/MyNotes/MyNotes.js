@@ -66,7 +66,7 @@ const MyNotes = () => {
                 Delete
               </Button>
             </Card.Header>
-            <Accordion.Collapse eventKey="0"> 
+            <Accordion.Collapse eventKey="0">
               <Card.Body>
                 <h4>
                   <Badge style={{ backgroundColor: "green" }}>
