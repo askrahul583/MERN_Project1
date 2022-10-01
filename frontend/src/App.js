@@ -6,6 +6,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import MyNotes from "./pages/MyNotes/MyNotes";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import CreateNote from "./pages/CreateNote/CreateNote";
+import SingleNote from "./pages/CreateNote/SingleNote";
 
 function App() {
   return (
@@ -20,6 +22,12 @@ function App() {
         </Route>
         <Route path="/register" exact>
           <RegisterPage />
+        </Route>
+        <Route path="/createnote" exact>
+          <CreateNote />
+        </Route>
+        <Route path="/note/:id">
+          <SingleNote />
         </Route>
         <Route path="/mynotes">
           <MyNotes />

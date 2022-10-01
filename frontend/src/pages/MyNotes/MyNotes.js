@@ -1,35 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { listNotes } from "../../actions/noteActions";
+import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
 // import notes from "../../data/notes";
 // import axios from "axios";
 
 const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+
+  const noteList = useSelector((state) => state.noteList);
+
+  const { loading, notes, error } = noteList;
+  // const [notes, setNotes] = useState([]);
+  //console.log(notes);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate } = noteUpdate;
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are You Sure To Delete")) {
+    if (window.confirm("Are You Sure To Delete ?")) {
     }
   };
 
-  const fetchNotes = async () => {
-    // const data = await axios.get("api/notes");
-    const response = await fetch("api/notes");
-    const data = await response.json();
-    setNotes(data);
-  };
+  // const fetchNotes = async () => {
+  //   // const data = await axios.get("api/notes");
+  //   const response = await fetch("api/notes");
+  //   const data = await response.json();
+  //   setNotes(data);
+  // };
 
   // console.log(notes);
+
+  const history = useHistory();
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    // fetchNotes();
+    dispatch(listNotes());
+    if (!userInfo) {
+      history.push("/");
+    }
+  }, [dispatch, history, successCreate, userInfo, successUpdate]);
 
   return (
-    <MainScreen title="Welcome Back Rahul Kumar...">
+    <MainScreen title={`Welcome Back ${userInfo.name}...`}>
       <Link to="createnote">
         <Button
           styles={{ marginLeft: 10, marginBottom: 6 }}
@@ -39,7 +64,9 @@ const MyNotes = () => {
           Create New Note
         </Button>
       </Link>
-      {notes.map((note) => (
+      {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+      {loading && <Loading />}
+      {notes?.reverse().map((note) => (
         <Accordion key={note._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
@@ -76,7 +103,10 @@ const MyNotes = () => {
                 <blockquote className="blockquote mb-0">
                   <p>{note.content}</p>
                   <footer className="blockquote-footer">
-                    Created On - date
+                    Created On -{" "}
+                    <cite title="Source Title">
+                      {/* {note.createdAt.subString(0, 10)} */}
+                    </cite>
                   </footer>
                 </blockquote>
               </Card.Body>
