@@ -2,10 +2,10 @@
   "name": "mern",
   "version": "1.0.0",
   "description": "MERN Develeopment",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/app.js",
+    "start": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend"
   },
