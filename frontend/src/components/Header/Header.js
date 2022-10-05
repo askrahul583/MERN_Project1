@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
 
@@ -38,20 +38,28 @@ const Header = ({ setSearch }) => {
               />
             </Form>
           </Nav>
-          <Nav style={{ maxHeight: "100px" }} navbarScroll>
-            <Nav.Link href="/mynotes">My Notes</Nav.Link>
-            {/* <Nav.Link href="#action2">Link</Nav.Link> */}
-            <NavDropdown title="Rahul Kumar" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item onClick={logoutHandler}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-            {/* <Nav.Link href="#" disabled>
+          {userInfo ? (
+            <Nav style={{ maxHeight: "100px" }} navbarScroll>
+              <Nav.Link href="/mynotes">My Notes</Nav.Link>
+              {/* <Nav.Link href="#action2">Link</Nav.Link> */}
+              <NavDropdown title={userInfo?.name} id="navbarScrollingDropdown">
+                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logoutHandler}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+              {/* <Nav.Link href="#" disabled>
               Link
             </Nav.Link> */}
-          </Nav>
+            </Nav>
+          ) : (
+            <Nav>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
