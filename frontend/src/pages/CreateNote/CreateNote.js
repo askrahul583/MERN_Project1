@@ -16,7 +16,7 @@ function CreateNote() {
   const dispatch = useDispatch();
   const history = useHistory();
   const noteCreate = useSelector((state) => state.noteCreate);
-  const { loading, error, notes } = noteCreate;
+  const { loading, error } = noteCreate;
 
   const resetHandler = () => {
     setTitle("");

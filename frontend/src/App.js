@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import CreateNote from "./pages/CreateNote/CreateNote";
 import SingleNote from "./pages/CreateNote/SingleNote";
 import { useState } from "react";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/login" exact>
           <LoginPage />
+        </Route>
+        <Route path="/profile" exact>
+          <ProfilePage />
         </Route>
         <Route path="/register" exact>
           <RegisterPage />

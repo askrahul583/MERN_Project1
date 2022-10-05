@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
+import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 
 const LandingPage = () => {
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
+  const history = useHistory();
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
 
-  //   if (userInfo) {
-  //     history.push("/mynotes");
-  //   }
-  // }, [history]);
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history]);
 
   return (
     <div className="main">
