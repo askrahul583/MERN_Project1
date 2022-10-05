@@ -17,7 +17,5 @@ router
   .get(getNoteById)
   .put(protect, updateNote)
   .delete(protect, deleteNote);
-//router.route("/:id").get(getNoteById).put(protect, updateNote);
-//.put().delete();
 
 module.exports = router;
