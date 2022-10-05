@@ -7,7 +7,6 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const userRoutes = require("./routes/userRoutes");
 const noteRoutes = require("./routes/noteRoutes");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
-const path = require("path");
 connectDB();
 app.use(express.json());
 
