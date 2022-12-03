@@ -91,7 +91,7 @@ function RegisterScreen() {
             <Form.Control
               type="email"
               value={email}
-              placeholder="Enter Your EmailID"
+              placeholder="Enter Your Email ID"
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
